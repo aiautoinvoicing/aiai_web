@@ -1,117 +1,93 @@
-import bcrypt from 'bcrypt';
-import postgres from 'postgres';
-import { invoices, customers, revenue, users } from '../lib/placeholder-data';
-
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
-
-async function seedUsers() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-  await sql`
-    CREATE TABLE IF NOT EXISTS users (
-      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      email TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL
-    );
-  `;
-
-  const insertedUsers = await Promise.all(
-    users.map(async (user) => {
-      const hashedPassword = await bcrypt.hash(user.password, 10);
-      return sql`
-        INSERT INTO users (id, name, email, password)
-        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
-        ON CONFLICT (id) DO NOTHING;
-      `;
-    }),
-  );
-
-  return insertedUsers;
-}
-
-async function seedInvoices() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-
-  await sql`
-    CREATE TABLE IF NOT EXISTS invoices (
-      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      customer_id UUID NOT NULL,
-      amount INT NOT NULL,
-      status VARCHAR(255) NOT NULL,
-      date DATE NOT NULL
-    );
-  `;
-
-  const insertedInvoices = await Promise.all(
-    invoices.map(
-      (invoice) => sql`
-        INSERT INTO invoices (customer_id, amount, status, date)
-        VALUES (${invoice.customer_id}, ${invoice.amount}, ${invoice.status}, ${invoice.date})
-        ON CONFLICT (id) DO NOTHING;
-      `,
-    ),
-  );
-
-  return insertedInvoices;
-}
-
-async function seedCustomers() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-
-  await sql`
-    CREATE TABLE IF NOT EXISTS customers (
-      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL,
-      image_url VARCHAR(255) NOT NULL
-    );
-  `;
-
-  const insertedCustomers = await Promise.all(
-    customers.map(
-      (customer) => sql`
-        INSERT INTO customers (id, name, email, image_url)
-        VALUES (${customer.id}, ${customer.name}, ${customer.email}, ${customer.image_url})
-        ON CONFLICT (id) DO NOTHING;
-      `,
-    ),
-  );
-
-  return insertedCustomers;
-}
-
-async function seedRevenue() {
-  await sql`
-    CREATE TABLE IF NOT EXISTS revenue (
-      month VARCHAR(4) NOT NULL UNIQUE,
-      revenue INT NOT NULL
-    );
-  `;
-
-  const insertedRevenue = await Promise.all(
-    revenue.map(
-      (rev) => sql`
-        INSERT INTO revenue (month, revenue)
-        VALUES (${rev.month}, ${rev.revenue})
-        ON CONFLICT (month) DO NOTHING;
-      `,
-    ),
-  );
-
-  return insertedRevenue;
-}
+import { NextResponse } from "next/server";
+import mysql from "mysql2/promise";
+import bcrypt from "bcrypt";
+import { users, customers, invoices, revenue } from "@/app/lib/placeholder-data";
 
 export async function GET() {
-  try {
-    const result = await sql.begin((sql) => [
-      seedUsers(),
-      seedCustomers(),
-      seedInvoices(),
-      seedRevenue(),
-    ]);
+    try {
+        const connection = await mysql.createConnection({
+            host: process.env.DB_HOST,
+            port: Number(process.env.DB_PORT),
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            ssl: { rejectUnauthorized: false }, // ⚠️ use CA cert in production
+        });
 
-    return Response.json({ message: 'Database seeded successfully' });
-  } catch (error) {
-    return Response.json({ error }, { status: 500 });
-  }
+        // 1. Users
+        await connection.execute(`
+      CREATE TABLE IF NOT EXISTS users (
+        id CHAR(36) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL
+      )
+    `);
+
+        for (const user of users) {
+            const hashedPassword = await bcrypt.hash(user.password, 10);
+            await connection.execute(
+                `INSERT IGNORE INTO users (id, name, email, password) VALUES (?, ?, ?, ?)`,
+                [user.id, user.name, user.email, hashedPassword]
+            );
+        }
+
+        // 2. Customers
+        await connection.execute(`
+      CREATE TABLE IF NOT EXISTS customers (
+        id CHAR(36) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        image_url VARCHAR(255) NOT NULL
+      )
+    `);
+
+        for (const customer of customers) {
+            await connection.execute(
+                `INSERT IGNORE INTO customers (id, name, email, image_url) VALUES (?, ?, ?, ?)`,
+                [customer.id, customer.name, customer.email, customer.image_url]
+            );
+        }
+
+        // 3. Invoices
+        await connection.execute(`
+      CREATE TABLE IF NOT EXISTS invoices (
+        id CHAR(36) PRIMARY KEY,
+        customer_id CHAR(36) NOT NULL,
+        amount INT NOT NULL,
+        status VARCHAR(255) NOT NULL,
+        date DATE NOT NULL
+      )
+    `);
+
+        for (const invoice of invoices) {
+            await connection.execute(
+                `INSERT IGNORE INTO invoices (id, customer_id, amount, status, date) VALUES (UUID(), ?, ?, ?, ?)`,
+                [invoice.customer_id, invoice.amount, invoice.status, invoice.date]
+            );
+        }
+
+        // 4. Revenue
+        await connection.execute(`
+  CREATE TABLE IF NOT EXISTS revenue (
+    id CHAR(36) PRIMARY KEY,        -- add a primary key
+    month VARCHAR(10) NOT NULL UNIQUE,
+    revenue INT NOT NULL
+  )
+`);
+
+        for (const rev of revenue) {
+            await connection.execute(
+                `INSERT IGNORE INTO revenue (id, month, revenue) VALUES (UUID(), ?, ?)`,
+                [rev.month, rev.revenue]
+            );
+        }
+
+
+        await connection.end();
+        return NextResponse.json({ message: "Database seeded successfully" });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    }
 }
