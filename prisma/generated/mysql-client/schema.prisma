@@ -1,0 +1,37 @@
+generator client_mysql {
+  provider = "prisma-client-js"
+  output   = "../../prisma/generated/mysql-client"
+}
+
+datasource mysql {
+  provider = "mysql"
+  url      = env("MYSQL_DATABASE_URL")
+}
+
+model customers {
+  id        String @id @mysql.Char(36)
+  name      String @mysql.VarChar(255)
+  email     String @mysql.VarChar(255)
+  image_url String @mysql.VarChar(255)
+}
+
+model invoices {
+  id          String   @id @mysql.Char(36)
+  customer_id String   @mysql.Char(36)
+  amount      Int
+  status      String   @mysql.VarChar(255)
+  date        DateTime @mysql.Date
+}
+
+model revenue {
+  id      String @id @mysql.Char(36)
+  month   String @unique(map: "month") @mysql.VarChar(10)
+  revenue Int
+}
+
+model users {
+  id       String @id @mysql.Char(36)
+  name     String @mysql.VarChar(255)
+  email    String @unique(map: "email") @mysql.VarChar(255)
+  password String @mysql.VarChar(255)
+}
