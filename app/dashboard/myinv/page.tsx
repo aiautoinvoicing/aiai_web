@@ -1,10 +1,8 @@
 import React from 'react';
-import { PrismaClient } from '@/prisma/generated/mysql-client';
-
-const mysql = new PrismaClient();
+import prisma from '@/lib/prisma';
 
 export default async function Page() {
-    const invoices = await mysql.invoices.findMany({ orderBy: { date: 'desc' } });
+    const invoices = await prisma.invoices.findMany({ orderBy: { date: 'desc' } });
 
     return (
         <main className="p-6">

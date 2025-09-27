@@ -15,6 +15,7 @@ const links = [
     },
     { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
     { name: 'MyInvs', href: '/dashboard/myinv', icon: UserGroupIcon },
+    { name: 'MyDashboard', href: '/dashboard/mydashboard', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {
