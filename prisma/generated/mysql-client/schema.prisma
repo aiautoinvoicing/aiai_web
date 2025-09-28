@@ -1,6 +1,6 @@
 generator client_mysql {
   provider = "prisma-client-js"
-  output   = "../../prisma/generated/mysql-client"
+  output   = "../prisma/generated/mysql-client"
 }
 
 datasource mysql {
@@ -13,6 +13,8 @@ model customers {
   name      String @mysql.VarChar(255)
   email     String @mysql.VarChar(255)
   image_url String @mysql.VarChar(255)
+
+  invoices invoices[] // relation back
 }
 
 model invoices {
@@ -21,6 +23,8 @@ model invoices {
   amount      Int
   status      String   @mysql.VarChar(255)
   date        DateTime @mysql.Date
+
+  customer customers @relation(fields: [customer_id], references: [id])
 }
 
 model revenue {

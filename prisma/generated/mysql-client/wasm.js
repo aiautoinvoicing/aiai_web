@@ -168,7 +168,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "A:\\aiai\\prisma\\generated\\mysql-client",
+      "value": "A:\\aiai\\aiai_web\\prisma\\generated\\mysql-client",
       "fromEnvVar": null
     },
     "config": {
@@ -186,10 +186,10 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../aiai_web/.env"
+    "rootEnvPath": "../../../.env",
+    "schemaEnvPath": "../../../.env"
   },
-  "relativePath": "../../../aiai_web/prisma",
+  "relativePath": "../..",
   "clientVersion": "6.16.2",
   "engineVersion": "1c57fdcd7e44b29b9313256c76699e91c3ac3c43",
   "datasourceNames": [
@@ -205,13 +205,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client_mysql {\n  provider = \"prisma-client-js\"\n  output   = \"../../prisma/generated/mysql-client\"\n}\n\ndatasource mysql {\n  provider = \"mysql\"\n  url      = env(\"MYSQL_DATABASE_URL\")\n}\n\nmodel customers {\n  id        String @id @mysql.Char(36)\n  name      String @mysql.VarChar(255)\n  email     String @mysql.VarChar(255)\n  image_url String @mysql.VarChar(255)\n}\n\nmodel invoices {\n  id          String   @id @mysql.Char(36)\n  customer_id String   @mysql.Char(36)\n  amount      Int\n  status      String   @mysql.VarChar(255)\n  date        DateTime @mysql.Date\n}\n\nmodel revenue {\n  id      String @id @mysql.Char(36)\n  month   String @unique(map: \"month\") @mysql.VarChar(10)\n  revenue Int\n}\n\nmodel users {\n  id       String @id @mysql.Char(36)\n  name     String @mysql.VarChar(255)\n  email    String @unique(map: \"email\") @mysql.VarChar(255)\n  password String @mysql.VarChar(255)\n}\n",
-  "inlineSchemaHash": "c3e3c7e533a2d6119f3166ea24a8947553418c9d748d540a4875bba677f8389d",
+  "inlineSchema": "generator client_mysql {\n  provider = \"prisma-client-js\"\n  output   = \"../prisma/generated/mysql-client\"\n}\n\ndatasource mysql {\n  provider = \"mysql\"\n  url      = env(\"MYSQL_DATABASE_URL\")\n}\n\nmodel customers {\n  id        String @id @mysql.Char(36)\n  name      String @mysql.VarChar(255)\n  email     String @mysql.VarChar(255)\n  image_url String @mysql.VarChar(255)\n\n  invoices invoices[] // relation back\n}\n\nmodel invoices {\n  id          String   @id @mysql.Char(36)\n  customer_id String   @mysql.Char(36)\n  amount      Int\n  status      String   @mysql.VarChar(255)\n  date        DateTime @mysql.Date\n\n  customer customers @relation(fields: [customer_id], references: [id])\n}\n\nmodel revenue {\n  id      String @id @mysql.Char(36)\n  month   String @unique(map: \"month\") @mysql.VarChar(10)\n  revenue Int\n}\n\nmodel users {\n  id       String @id @mysql.Char(36)\n  name     String @mysql.VarChar(255)\n  email    String @unique(map: \"email\") @mysql.VarChar(255)\n  password String @mysql.VarChar(255)\n}\n",
+  "inlineSchemaHash": "66f6c7dbd7e7e57a8a4c29946882578f01e194f8bdadc2d6dad618212bd75b0c",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"customers\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image_url\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"invoices\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customer_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"revenue\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"month\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"revenue\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"users\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"customers\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"invoices\",\"kind\":\"object\",\"type\":\"invoices\",\"relationName\":\"customersToinvoices\"}],\"dbName\":null},\"invoices\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customer_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"customer\",\"kind\":\"object\",\"type\":\"customers\",\"relationName\":\"customersToinvoices\"}],\"dbName\":null},\"revenue\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"month\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"revenue\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"users\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

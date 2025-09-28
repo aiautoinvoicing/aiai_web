@@ -3,17 +3,17 @@ import RevenueChart from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
 
-import { fetchCardData, fetchRevenue, fetchLatestInvoices } from '@/app/lib/data';
+import { fetchRevenuePrisma, fetchCardDataPrisma, fetchLatestInvoicesPrisma } from '@/app/lib/mydata';
 
 export default async function Page() {
-    const revenue = await fetchRevenue();
-    const latestInvoices = await fetchLatestInvoices();
+    const revenue = await fetchRevenuePrisma();
+    const latestInvoices = await fetchLatestInvoicesPrisma();
     const {
         numberOfInvoices,
         numberOfCustomers,
         totalPaidInvoices,
         totalPendingInvoices,
-    } = await fetchCardData();
+    } = await fetchCardDataPrisma();
 
     return (
         <main>
