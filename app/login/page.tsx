@@ -1,5 +1,5 @@
 import AcmeLogo from '@/app/ui/acme-logo';
-import LoginForm from '@/app/ui/login-form';
+import LoginFirebase from '@/app/ui/login-firebase';
 import { Suspense } from 'react';
 import Image from "next/image";
 
@@ -19,7 +19,7 @@ export default function LoginPage() {
                     </div>
                 </div>
                 <Suspense>
-                    <LoginForm />
+                    <LoginFirebase />
                 </Suspense>
             </div>
         </main>
