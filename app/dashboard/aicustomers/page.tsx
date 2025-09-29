@@ -15,24 +15,30 @@ export default function FirestoreTest() {
             setUid(userUid);
             console.log("🔥 Current UID:", userUid);
 
+            if (!userUid) return;
+
             console.log("🔥 Firestore fetch starting...");
             try {
-                // keep existing logic
-                const snapshot = await getDocs(collection(db, "aiai")); // <-- test root collection
-                console.log("📊 Snapshot size:", snapshot.size);
-                snapshot.forEach((doc) => console.log("Doc:", doc.id, doc.data()));
+                // 🔑 access clients subcollection under tenant document
+                const clientsRef = collection(db, `aiai/be_${userUid}/clients`);
+                const snapshot = await getDocs(clientsRef);
+
+                console.log("📊 Clients snapshot size:", snapshot.size);
+                snapshot.forEach((doc) => console.log("Client Doc:", doc.id, doc.data()));
+
                 setDocsCount(snapshot.size);
             } catch (err) {
                 console.error("❌ Firestore fetch error:", err);
             }
         }
+
         fetchData();
     }, []);
 
     return (
         <div>
             <p>Current UID: {uid ?? "Not logged in"}</p>
-            <p>Docs fetched: {docsCount ?? "Loading..."}</p>
+            <p>Number of client documents: {docsCount ?? "Loading..."}</p>
         </div>
     );
 }
