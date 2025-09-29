@@ -3,57 +3,62 @@
 import { useEffect, useState } from "react";
 import { db, auth } from "@/app/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import CustomersTable from "@/app/ui/customers/aitable";
 
-export default function FirestoreTest() {
-    const [clients, setClients] = useState<any[]>([]);
-    const [uid, setUid] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
+export type FormattedAICustomersTable = {
+  id: string;
+  client_company_name: string;
+  client_contact_name: string;
+  client_email: string;
+  client_mainphone: string;
+  client_payment_term: string;
+};
 
-    useEffect(() => {
-        async function fetchClients() {
-            const userUid = auth.currentUser?.uid || null;
-            setUid(userUid);
-            console.log("🔥 Current UID:", userUid);
+export default function CustomersPage() {
+  const [clients, setClients] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-            if (!userUid) {
-                setLoading(false);
-                return;
-            }
+  useEffect(() => {
+    async function fetchClients() {
+      const userUid = auth.currentUser?.uid;
+      if (!userUid) {
+        setLoading(false);
+        return;
+      }
 
-            console.log("🔥 Firestore fetch starting...");
-            try {
-                const clientsRef = collection(db, `aiai/be_${userUid}/clients`);
-                const snapshot = await getDocs(clientsRef);
+      try {
+        const clientsRef = collection(db, `aiai/be_${userUid}/clients`);
+        const snapshot = await getDocs(clientsRef);
 
-                const data = snapshot.docs.map((doc) => ({
-                    client_id: doc.id,
-                    client_company_name: (doc.data() as any).client_company_name,
-                }));
+        const data = snapshot.docs.map((doc) => {
+          const d = doc.data() as any;
+          return {
+            id: doc.id,
+            client_company_name: d.client_company_name || d.be_company_name || "",
+            client_contact_name: d.client_contact_name || d.be_contact || "",
+            client_email: d.client_email || d.be_email || "",
+            client_mainphone: d.client_mainphone || d.be_phone || "",
+            client_payment_term: String(d.client_payment_term || ""),
+          };
+        });
 
-                console.log("📊 Clients fetched:", data);
-                setClients(data);
-            } catch (err) {
-                console.error("❌ Firestore fetch error:", err);
-            } finally {
-                setLoading(false);
-            }
-        }
+        setClients(data);
+      } catch (err) {
+        console.error("Firestore fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-        fetchClients();
-    }, []);
+    fetchClients();
+  }, []);
 
-    if (loading) return <p>Loading clients...</p>;
+  if (loading) return <p>Loading clients...</p>;
 
-    return (
-        <div>
-            <p>Current UID: {uid ?? "Not logged in"}</p>
-            <p>Number of clients: {clients.length}</p>
-
-            <ul>
-                {clients.map((c) => (
-                    <li key={c.client_id}>{c.client_company_name}</li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <div>
+      <p>Current UID: {auth.currentUser?.uid ?? "Not logged in"}</p>
+      <CustomersTable customers={clients} />
+    </div>
+  );
 }
