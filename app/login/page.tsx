@@ -12,8 +12,8 @@ export default function LoginPage() {
                         <Image
                             src="/logo_transparent.png"     // <-- replace with your logo file path
                             alt="Logo"
-                            width={244}         // max width (w-36 = 144px)
-                            height={144}        // keep it square, adjust as needed
+                            width={260}         // max width (w-36 = 144px)
+                            height={260}        // keep it square, adjust as needed
                             className="w-full h-auto" // makes it responsive to w-32 / w-36
                         />
                     </div>
