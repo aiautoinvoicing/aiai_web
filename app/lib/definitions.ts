@@ -75,6 +75,17 @@ export type FormattedCustomersTable = {
     total_paid: string;
 };
 
+
+
+export type FormattedAICustomersTable = {
+    id: string;
+    client_company_name: string;
+    client_contact_name: string;
+    client_email: string;
+    client_mainphone: string;
+    client_payment_term: string;
+};
+
 export type CustomerField = {
     id: string;
     name: string;
