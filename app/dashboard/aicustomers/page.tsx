@@ -5,40 +5,55 @@ import { db, auth } from "@/app/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 export default function FirestoreTest() {
-    const [docsCount, setDocsCount] = useState<number | null>(null);
+    const [clients, setClients] = useState<any[]>([]);
     const [uid, setUid] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchData() {
-            // 🔑 get logged-in user UID
+        async function fetchClients() {
             const userUid = auth.currentUser?.uid || null;
             setUid(userUid);
             console.log("🔥 Current UID:", userUid);
 
-            if (!userUid) return;
+            if (!userUid) {
+                setLoading(false);
+                return;
+            }
 
             console.log("🔥 Firestore fetch starting...");
             try {
-                // 🔑 access clients subcollection under tenant document
                 const clientsRef = collection(db, `aiai/be_${userUid}/clients`);
                 const snapshot = await getDocs(clientsRef);
 
-                console.log("📊 Clients snapshot size:", snapshot.size);
-                snapshot.forEach((doc) => console.log("Client Doc:", doc.id, doc.data()));
+                const data = snapshot.docs.map((doc) => ({
+                    client_id: doc.id,
+                    client_company_name: (doc.data() as any).client_company_name,
+                }));
 
-                setDocsCount(snapshot.size);
+                console.log("📊 Clients fetched:", data);
+                setClients(data);
             } catch (err) {
                 console.error("❌ Firestore fetch error:", err);
+            } finally {
+                setLoading(false);
             }
         }
 
-        fetchData();
+        fetchClients();
     }, []);
+
+    if (loading) return <p>Loading clients...</p>;
 
     return (
         <div>
             <p>Current UID: {uid ?? "Not logged in"}</p>
-            <p>Number of client documents: {docsCount ?? "Loading..."}</p>
+            <p>Number of clients: {clients.length}</p>
+
+            <ul>
+                {clients.map((c) => (
+                    <li key={c.client_id}>{c.client_company_name}</li>
+                ))}
+            </ul>
         </div>
     );
 }
