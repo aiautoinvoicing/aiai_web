@@ -8,14 +8,17 @@ import clsx from 'clsx';
 // Depending on the size of the application, this would be stored in a database.
 const links = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon },
-    {
-        name: 'Invoices',
-        href: '/dashboard/invoices',
-        icon: DocumentDuplicateIcon,
-    },
-    { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
-    { name: 'MyInvs', href: '/dashboard/myinv', icon: UserGroupIcon },
-    { name: 'MyDashboard', href: '/dashboard/mydashboard', icon: UserGroupIcon },
+    { name: 'Invoices', href: '/dashboard/aiinvoices', icon: DocumentDuplicateIcon, },
+    { name: 'Customers1', href: '/dashboard/aicustomers', icon: UserGroupIcon },
+
+    // postgres
+    // { name: 'Home', href: '/dashboard', icon: HomeIcon },
+    // { name: 'Invoices', href: '/dashboard/invoices', icon: DocumentDuplicateIcon, },
+    // { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+
+    // mysql
+    // { name: 'MyInvs', href: '/dashboard/myinv', icon: UserGroupIcon },
+    // { name: 'MyDashboard', href: '/dashboard/mydashboard', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {

@@ -16,7 +16,9 @@ export default function SideNav() {
                         src="/logo1.png" // replace with your image in /public
                         alt="aiAI"
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-contain"
+                        loading="eager"
                     />
                 </div>
             </Link>
