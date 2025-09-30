@@ -9,7 +9,7 @@ import clsx from 'clsx';
 const links = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon },
     { name: 'Invoices', href: '/dashboard/aiinvoices', icon: DocumentDuplicateIcon, },
-    { name: 'Customers1', href: '/dashboard/aicustomers', icon: UserGroupIcon },
+    { name: 'Customers', href: '/dashboard/aicustomers', icon: UserGroupIcon },
 
     // postgres
     // { name: 'Home', href: '/dashboard', icon: HomeIcon },
