@@ -9,8 +9,8 @@ export const metadata: Metadata = {
         default: 'AI Auto Invoicing',
     },
     icons: { icon: "/favicon.png", },
-    description: 'The official Next.js Learn Dashboard built with App Router.',
-    metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+    description: 'AI Auto Invoicing.',
+    metadataBase: new URL('https://ai-auto-invoicing.vercel.app/'),
 };
 
 export default function RootLayout({
