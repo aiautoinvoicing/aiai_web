@@ -13,10 +13,12 @@ export default function SideNav() {
             >
                 <div className="relative w-62 h-32 md:w-80 md:h-34">
                     <Image
-                        src="/logo.png" // replace with your image in /public
+                        src="/logo1.png" // replace with your image in /public
                         alt="aiAI"
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-contain"
+                        loading="eager"
                     />
                 </div>
             </Link>
