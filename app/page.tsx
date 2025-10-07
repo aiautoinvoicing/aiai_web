@@ -40,7 +40,18 @@ export default function Page() {
                             priority
                         />
                     </div> */}
-                    <div className="relative w-[230px] md:w-[280px] aspect-[9/16] rounded-[2rem] overflow-hidden shadow-2xl">
+                    {/* <div className="relative w-[230px] md:w-[280px] aspect-[9/16] rounded-[2rem] overflow-hidden shadow-2xl">
+                        <iframe
+                            src="https://www.youtube.com/embed/hsw_OwaBi_4?autoplay=1&mute=1&loop=1&playlist=hsw_OwaBi_4"
+                            title="AI Auto Invoicing preview"
+                            frameBorder="0"
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                            className="absolute inset-0 w-full h-full"
+                        />
+                    </div> */}
+
+                    <div className="relative w-full max-w-[560px] md:max-w-[800px] aspect-video rounded-[1rem] overflow-hidden shadow-2xl mx-auto">
                         <iframe
                             src="https://www.youtube.com/embed/hsw_OwaBi_4?autoplay=1&mute=1&loop=1&playlist=hsw_OwaBi_4"
                             title="AI Auto Invoicing preview"
