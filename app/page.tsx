@@ -10,7 +10,7 @@ export default function Page() {
                 {/* Text content */}
                 <div className="md:w-1/2 text-center md:text-right md:pr-12">
                     <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">
-                        AI Auto <span className="text-blue-600">Invoicing</span> 
+                        AI Auto <span className="text-blue-600">Invoicing</span>
                     </h1>
                     <p className="text-lg text-gray-600 leading-relaxed mb-8">
                         Fast, accurate, and professional<br />
@@ -30,7 +30,7 @@ export default function Page() {
 
                 {/* Phone image */}
                 <div className="md:w-1/2 flex justify-center md:justify-start mt-12 md:mt-0">
-                    <div className="relative w-[230px] md:w-[280px]">
+                    {/* <div className="relative w-[230px] md:w-[280px]">
                         <Image
                             src="/phone2.jpg"
                             width={500}
@@ -39,7 +39,29 @@ export default function Page() {
                             className="rounded-[2rem] shadow-2xl"
                             priority
                         />
+                    </div> */}
+                    {/* <div className="relative w-[230px] md:w-[280px] aspect-[9/16] rounded-[2rem] overflow-hidden shadow-2xl">
+                        <iframe
+                            src="https://www.youtube.com/embed/hsw_OwaBi_4?autoplay=1&mute=1&loop=1&playlist=hsw_OwaBi_4"
+                            title="AI Auto Invoicing preview"
+                            frameBorder="0"
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                            className="absolute inset-0 w-full h-full"
+                        />
+                    </div> */}
+
+                    <div className="relative w-full max-w-[560px] md:max-w-[800px] aspect-video rounded-[1rem] overflow-hidden shadow-2xl mx-auto">
+                        <iframe
+                            src="https://www.youtube.com/embed/hsw_OwaBi_4?autoplay=1&mute=1&loop=1&playlist=hsw_OwaBi_4"
+                            title="AI Auto Invoicing preview"
+                            frameBorder="0"
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                            className="absolute inset-0 w-full h-full"
+                        />
                     </div>
+
                 </div>
             </header>
 
