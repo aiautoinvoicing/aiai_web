@@ -168,7 +168,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "A:\\aiai\\aiai_web\\prisma\\generated\\mysql-client",
+      "value": "/vercel/sandbox/primary/prisma/generated/mysql-client",
       "fromEnvVar": null
     },
     "config": {
@@ -177,17 +177,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "rhel-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "A:\\aiai\\aiai_web\\prisma\\schema.prisma",
+    "sourceFilePath": "/vercel/sandbox/primary/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../..",
   "clientVersion": "6.16.2",
