@@ -1,10 +1,10 @@
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
-import { pool } from '../lib/mysql_db';
+import { pool } from '../app/lib/mysql_db';
 import { v4 as uuidv4 } from 'uuid';
 
 // 👉 Replace with your actual placeholder-data imports
-import { users, customers, invoices, revenue } from '../lib/placeholder-data';
+import { users, customers, invoices, revenue } from '../app/lib/placeholder-data';
 
 async function seedUsers() {
     await pool.query(`
