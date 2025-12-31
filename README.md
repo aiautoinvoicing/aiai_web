@@ -1,5 +1,7 @@
-## Next.js App Router Course - Starter
+v17: postgres, sql, login
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+pnpm exec prisma generate --schema=prisma/schema.prisma
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+
+PostgreSQL   Prisma
+MySQL        TypeORM
