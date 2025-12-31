@@ -18,7 +18,7 @@ export default function LoginPage() {
                         />
                     </div>
                 </div>
-                <Suspense>
+                <Suspense fallback={<div>Loading…</div>}>
                     <LoginFirebase />
                 </Suspense>
             </div>
