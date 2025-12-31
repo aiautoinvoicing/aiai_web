@@ -7,6 +7,3 @@ PostgreSQL   Prisma
 MySQL        TypeORM
 
 
-1. what's this csv? 
-    it's a deal reports.
-2. how big is it? 10k rows.
