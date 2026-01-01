@@ -15,7 +15,7 @@ export type Report = {
   source?: string;
   deal_stage?: string;
   account_id?: string;
-  created_at?: string; // ISO
+  mdate?: string; // ISO
 };
 
 const SortableHeader = ({
@@ -46,16 +46,16 @@ const SortableHeader = ({
 
 export const columns: ColumnDef<Report>[] = [
   {
-    id: "created_at", // ✅ backend sort key
+    id: "mdate", // ✅ backend sort key
     accessorFn: (row) =>
-      row.created_at ? new Date(row.created_at).getTime() : 0,
+      row.mdate ? new Date(row.mdate).getTime() : 0,
     sortingFn: "basic",
     header: ({ column }) => (
-      <SortableHeader column={column} label="Created At" />
+      <SortableHeader column={column} label="Date" />
     ),
     cell: ({ row }) =>
-      row.original.created_at
-        ? formatDate(row.original.created_at)
+      row.original.mdate
+        ? formatDate(row.original.mdate)
         : "—",
   },
 
