@@ -3,7 +3,7 @@ import { UploadReport } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/app/lib/data';
+import { fetchReports } from "@/app/lib/data";
 import { Metadata } from 'next';
 import ReportsTable from '@/app/ui/reports/table';
 import Pagination from "@/app/ui/reports/pagination";
@@ -17,12 +17,20 @@ export default async function Page(props: {
     searchParams?: Promise<{
         query?: string;
         page?: string;
+        sort_by?: string;
+        sort_order?: "asc" | "desc";
     }>;
 }) {
     const searchParams = await props.searchParams;
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
-    const totalPages = await fetchInvoicesPages(query);
+    const sortBy = searchParams?.sort_by;
+    const sortOrder = searchParams?.sort_order;
+    const { total_pages } = await fetchReports({
+        page: currentPage,
+        sortBy,
+        sortOrder,
+    });
 
     return (
         <div className="w-full">
@@ -34,8 +42,14 @@ export default async function Page(props: {
                 <UploadReport />
             </div>
             <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-                <ReportsTable currentPage={currentPage}/>
-                <Pagination totalPages={totalPages} />
+                {/* <ReportsTable currentPage={currentPage} /> */}
+                <ReportsTable
+                    key={`${currentPage}-${sortBy}-${sortOrder}`} // 🔑 forces refresh
+                    currentPage={currentPage}
+                    sortBy={sortBy}
+                    sortOrder={sortOrder}
+                />
+                <Pagination totalPages={total_pages} />
 
             </Suspense>
         </div>

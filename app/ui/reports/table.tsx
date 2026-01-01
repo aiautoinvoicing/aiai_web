@@ -6,11 +6,17 @@ import { columns } from "./columns";
 
 export default async function ReportsTable({
     currentPage,
+    sortBy,
+    sortOrder,
 }: {
     currentPage: number;
+    sortBy?: string;
+    sortOrder?: "asc" | "desc";
 }) {
     const { items, total_pages } = await fetchReports({
         page: currentPage,
+        sortBy,
+        sortOrder,
     });
 
     return (
