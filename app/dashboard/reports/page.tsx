@@ -1,12 +1,12 @@
-import Pagination from '@/app/ui/invoices/pagination';
 import Search from '@/app/ui/search';
-import Table from '@/app/ui/invoices/table';
 import { UploadReport } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { fetchInvoicesPages } from '@/app/lib/data';
 import { Metadata } from 'next';
+import ReportsTable from '@/app/ui/reports/table';
+import Pagination from "@/app/ui/reports/pagination";
 
 export const metadata: Metadata = {
     title: 'Reports | invoAIce Dashboard',
@@ -34,11 +34,10 @@ export default async function Page(props: {
                 <UploadReport />
             </div>
             <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-                <Table query={query} currentPage={currentPage} />
-            </Suspense>
-            <div className="mt-5 flex w-full justify-center">
+                <ReportsTable currentPage={currentPage}/>
                 <Pagination totalPages={totalPages} />
-            </div>
+
+            </Suspense>
         </div>
     );
 }
