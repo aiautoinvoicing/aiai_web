@@ -20,7 +20,7 @@ export function AddReportRow() {
 
     async function submit() {
         setLoading(true);
-        await fetch("http://localhost:8008/reports", {
+        await fetch("http://localhost:8008/reports/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(form),
