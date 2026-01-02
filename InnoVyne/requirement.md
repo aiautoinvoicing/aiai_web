@@ -13,11 +13,13 @@ Build a small web app (React + backend of choice) that:
     - Transmission way --> email, ftp
 
 - Displays data in an interactive table
-Provides filtering capabilities
-Provides data editing capabilities (add new row, edit existing cells)
+    - Provides filtering capabilities
+    - Provides data editing capabilities (add new row, edit existing cells)
 
 Integrates a simple AI assistant panel that can Summarize the data (e.g., key statistics, anomalies)
 Answer simple questions about the data (e.g., “Which product had the highest sales?”)
+
+
 
 Deliverables:
 Source code (GitHub repo)
