@@ -56,3 +56,54 @@ export async function authenticate(
         throw error;
     }
 }
+
+
+
+
+
+
+
+export async function uploadReports(formData: FormData) {
+    const file = formData.get('file');
+    const customerId = formData.get('customerId');
+
+    if (!(file instanceof File)) {
+        throw new Error('File is required');
+    }
+
+    if (typeof customerId !== 'string' || !customerId) {
+        throw new Error('Customer is required');
+    }
+
+    // Compose multipart/form-data for backend
+    const uploadFormData = new FormData();
+    uploadFormData.append('file', file);
+
+    const response = await fetch('http://localhost:8008/reports/upload', {
+        method: 'POST',
+        headers: {
+            accept: 'application/json',
+        },
+        body: uploadFormData,
+    });
+
+    if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Report upload failed: ${text}`);
+    }
+
+    const result = await response.json();
+
+    /**
+     * At this point you have:
+     * - customerId (from your app)
+     * - result (from reports service)
+     *
+     * This is where you would later:
+     * - persist the association
+     * - trigger processing
+     * - enqueue background jobs
+     */
+
+    return result;
+}

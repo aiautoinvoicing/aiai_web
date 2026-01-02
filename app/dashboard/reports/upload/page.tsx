@@ -1,4 +1,4 @@
-import Form from '@/app/ui/invoices/create-form';
+import UploadForm from '@/app/ui/reports/upload-reports';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchCustomers } from '@/app/lib/data';
 
@@ -17,7 +17,7 @@ export default async function Page() {
                     },
                 ]}
             />
-            <Form customers={customers} />
+            <UploadForm customers={customers} />
         </main>
     );
 }
