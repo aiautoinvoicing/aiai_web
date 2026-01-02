@@ -22,7 +22,8 @@ Answer simple questions about the data (e.g., “Which product had the highest s
 
 
 Deliverables:
-Source code (GitHub repo)
-Short README explaining architecture, how to run locally, and any design trade-offs.
+- Source code (GitHub repo)
+- Short README explaining architecture, how to run locally, and any design trade-offs.
+
 Comments:
 We encourage the use of AI tools and existing libraries to assist and to help bolster your development efforts
