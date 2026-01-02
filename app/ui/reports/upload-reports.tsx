@@ -6,7 +6,7 @@ import { uploadReports } from '@/app/lib/actions';
 
 export default function UploadForm({ customers }: { customers: CustomerField[] }) {
     return (
-        <form action={uploadReports} encType="multipart/form-data">
+        <form action={uploadReports}>
             <div className="rounded-md bg-gray-50 p-4 md:p-6">
                 {/* Customer */}
                 <div className="mb-4">

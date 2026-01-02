@@ -126,3 +126,23 @@ Query AI (summary / question answering)
 Data flow:
 
 Upload CSV → Backend parses → Store rows in Postgres → Convert each row to text → Generate embedding → Store embedding + text in pgvector → On query, use retriever + reader → Return AI answer
+
+
+
+Next.js frontend:
+
+Table of 10k records
+
+Input box above the table for natural-language questions (Summarize, Which lead owner…, etc.)
+
+Clicking “Ask” calls a FastAPI endpoint
+
+FastAPI backend:
+
+Uses Haystack PgvectorDocumentStore with your embedded reports
+
+Uses SentenceTransformersDocumentEmbedder for retrieval
+
+Uses OpenAIAnswerGenerator for summarization / question answering
+
+Endpoint receives the question, queries Haystack, returns the answer
