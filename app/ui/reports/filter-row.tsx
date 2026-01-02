@@ -47,6 +47,7 @@ export function FilterRow({ onClose }: { onClose?: () => void }) {
             source: "",
             deal_stage: "",
         });
+        onClose?.();
     }
 
     return (

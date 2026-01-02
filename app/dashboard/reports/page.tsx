@@ -45,7 +45,10 @@ export default async function Page(props: {
                 <Search placeholder="Search Reports..." />
                 <CreateInvoice />
             </div>
-            <FilterButton />
+            <div className="mt-4 mb-4 flex items-center justify-between gap-2 md:mt-8">
+                <FilterButton />
+            </div>
+            
             <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
                 {/* <ReportsTable currentPage={currentPage} /> */}
 
