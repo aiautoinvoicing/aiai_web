@@ -5,10 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export function FilterRow() {
+export function FilterRow({ onClose }: { onClose?: () => void }) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
+    // initial form based on URL, but will reset if component remounts
     const [form, setForm] = useState({
         first_name: searchParams.get("first_name") ?? "",
         last_name: searchParams.get("last_name") ?? "",
@@ -21,7 +22,6 @@ export function FilterRow() {
     function apply() {
         const params = new URLSearchParams();
 
-        // keep your existing defaults
         params.set("page", "1");
         params.set("page_size", "10");
         params.set("sort_order", "asc");
@@ -36,61 +36,34 @@ export function FilterRow() {
     }
 
     function clear() {
+        // reset URL
         router.push("?page=1&page_size=10&sort_order=asc");
+        // reset local inputs
+        setForm({
+            first_name: "",
+            last_name: "",
+            company: "",
+            lead_owner: "",
+            source: "",
+            deal_stage: "",
+        });
     }
 
     return (
         <div className="flex items-center gap-2">
-            <Input
-                placeholder="First name"
-                value={form.first_name}
-                onChange={(e) =>
-                    setForm({ ...form, first_name: e.target.value })
-                }
-            />
-            <Input
-                placeholder="Last name"
-                value={form.last_name}
-                onChange={(e) =>
-                    setForm({ ...form, last_name: e.target.value })
-                }
-            />
-            <Input
-                placeholder="Company"
-                value={form.company}
-                onChange={(e) =>
-                    setForm({ ...form, company: e.target.value })
-                }
-            />
-            <Input
-                placeholder="Lead owner"
-                value={form.lead_owner}
-                onChange={(e) =>
-                    setForm({ ...form, lead_owner: e.target.value })
-                }
-            />
-            <Input
-                placeholder="Source"
-                value={form.source}
-                onChange={(e) =>
-                    setForm({ ...form, source: e.target.value })
-                }
-            />
-            <Input
-                placeholder="Deal stage"
-                value={form.deal_stage}
-                onChange={(e) =>
-                    setForm({ ...form, deal_stage: e.target.value })
-                }
-            />
+            {["first_name","last_name","company","lead_owner","source","deal_stage"].map(field => (
+                <Input
+                    key={field}
+                    placeholder={field.replace("_", " ")}
+                    value={form[field as keyof typeof form]}
+                    onChange={e =>
+                        setForm({ ...form, [field]: e.target.value })
+                    }
+                />
+            ))}
 
-            {/* Buttons stay at the end */}
-            <Button onClick={apply}>
-                Apply
-            </Button>
-            <Button variant="ghost" onClick={clear}>
-                Clear
-            </Button>
+            <Button onClick={apply}>Apply</Button>
+            <Button variant="ghost" onClick={clear}>Clear</Button>
         </div>
     );
 }

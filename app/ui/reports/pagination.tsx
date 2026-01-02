@@ -26,9 +26,9 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
                 Previous
             </Button>
 
-            <span className="text-sm">
+            {/* <span className="text-sm">
                 Page {page} of {totalPages}
-            </span>
+            </span> */}
 
             <Button
                 variant="outline"

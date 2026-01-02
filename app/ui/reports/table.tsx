@@ -17,6 +17,9 @@ export default async function ReportsTable({
 }) {
 
     const filters = {
+        first_name: searchParams?.first_name,
+        last_name: searchParams?.last_name,
+        company: searchParams?.company,
         source: searchParams?.source,
         deal_stage: searchParams?.deal_stage,
         lead_owner: searchParams?.lead_owner,

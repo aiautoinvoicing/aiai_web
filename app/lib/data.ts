@@ -221,7 +221,7 @@ export async function fetchFilteredCustomers(query: string) {
 
 export async function fetchReports({
     page,
-    pageSize = 4,
+    pageSize = 10,
     sortBy = "created_at",
     sortOrder = "desc",
     filters = {},
