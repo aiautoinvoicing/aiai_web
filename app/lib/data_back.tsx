@@ -224,29 +224,17 @@ export async function fetchReports({
     pageSize = 4,
     sortBy = "created_at",
     sortOrder = "desc",
-    filters = {},
 }: {
     page: number;
     pageSize?: number;
     sortBy?: string;
     sortOrder?: "asc" | "desc";
-    filters?: Record<string, string | undefined>;
 }) {
-    const params = new URLSearchParams();
-    params.set("page", String(page));
-    params.set("page_size", String(pageSize));
-    params.set("sort_by", sortBy);
-    params.set("sort_order", sortOrder);
+    const url = `http://localhost:8008/reports/pages?page=${page}&page_size=${pageSize}&sort_by=${sortBy}&sort_order=${sortOrder}`;
 
-    Object.entries(filters).forEach(([key, value]) => {
-        if (value) params.set(key, value);
+    const res = await fetch(url, {
+        cache: "no-store",
     });
-
-    // const url = `http://localhost:8008/reports/pagination?page=${page}&page_size=${pageSize}&sort_by=${sortBy}&sort_order=${sortOrder}`;
-
-    const url = `http://localhost:8008/reports/list_filtered_reports?${params.toString()}`;
-
-    const res = await fetch(url, {cache: "no-store",});
 
     if (!res.ok) {
         throw new Error("Failed to fetch reports");

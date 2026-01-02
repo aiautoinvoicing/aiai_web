@@ -8,6 +8,7 @@ import { Metadata } from 'next';
 import ReportsTable from '@/app/ui/reports/table';
 import Pagination from "@/app/ui/reports/pagination";
 import { AddReportButton } from "@/app/ui/reports/add-report-button";
+import { FilterButton } from "@/app/ui/reports/filter-button";
 
 export const metadata: Metadata = {
     title: 'Reports | invoAIce Dashboard',
@@ -44,6 +45,7 @@ export default async function Page(props: {
                 <Search placeholder="Search Reports..." />
                 <UploadReport />
             </div>
+                <FilterButton />
             <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
                 {/* <ReportsTable currentPage={currentPage} /> */}
 
@@ -52,6 +54,7 @@ export default async function Page(props: {
                     currentPage={currentPage}
                     sortBy={sortBy}
                     sortOrder={sortOrder}
+                    searchParams={searchParams}
                 />
                 <AddReportButton />
                 <Pagination totalPages={total_pages} />
