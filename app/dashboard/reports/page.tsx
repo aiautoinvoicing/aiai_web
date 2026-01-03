@@ -1,5 +1,5 @@
 import Search from '@/app/ui/search';
-import { CreateInvoice, UploadReport } from '@/app/ui/invoices/buttons';
+import { CreateInvoice, UploadReport, Ask } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
@@ -43,7 +43,7 @@ export default async function Page(props: {
 
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
                 <Search placeholder="Search Reports..." />
-                <CreateInvoice />
+                <Ask />
             </div>
             <div className="mt-4 mb-4 flex items-center justify-between gap-2 md:mt-8">
                 <FilterButton />
