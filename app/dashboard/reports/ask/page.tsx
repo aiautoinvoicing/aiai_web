@@ -77,7 +77,7 @@ export default function Ask() {
         if (!query) return;
         setLoadingLLM(true);
         try {
-            const res = await fetch("http://34.130.233.222:8008/iv3tools/sql_emb_serp", {
+            const res = await fetch("/api/llm", {
                 // const res = await fetch("http://localhost:8008/iv3tools/sql_emb_serp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
