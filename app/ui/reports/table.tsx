@@ -36,10 +36,10 @@ export default async function ReportsTable({
         <DataTable
             columns={columns}
             data={items}
-            pageCount={total_pages}
-            manualPagination
-            manualSorting
-            manualFiltering
+            // pageCount={total_pages}
+            // manualPagination
+            // manualSorting
+            // manualFiltering
         />
     );
 }
