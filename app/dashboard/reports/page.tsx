@@ -39,12 +39,13 @@ export default async function Page(props: {
             <div className="flex w-full items-center gap-4">
                 <h1 className={`${lusitana.className} text-2xl`}>Reports</h1>
                 {/* <UploadReport /> */}
-            </div>
-
-            <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-                <Search placeholder="Search Reports..." />
                 <Ask />
             </div>
+
+            {/* <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+                <Search placeholder="Search Reports..." />
+                <Ask query={query} />
+            </div> */}
             <div className="mt-4 mb-4 flex items-center justify-between gap-2 md:mt-8">
                 <FilterButton />
             </div>
