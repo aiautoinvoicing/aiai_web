@@ -244,7 +244,7 @@ export async function fetchReports({
 
     // const url = `http://localhost:8008/reports/pagination?page=${page}&page_size=${pageSize}&sort_by=${sortBy}&sort_order=${sortOrder}`;
 
-    const url = `http://localhost:8008/reports/list_filtered_reports?${params.toString()}`;
+    const url = `http://34.130.233.222:8008/reports/list_filtered_reports?${params.toString()}`;
 
     const res = await fetch(url, {cache: "no-store",});
 
