@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Search from '@/app/ui/search';
 import { CreateInvoice, UploadReport, Ask } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
