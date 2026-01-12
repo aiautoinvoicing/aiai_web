@@ -219,6 +219,32 @@ export async function fetchFilteredCustomers(query: string) {
 
 // app/lib/data.ts
 
+// export async function fetchReports({
+//     page,
+//     pageSize = 4,
+//     sortBy = "created_at",
+//     sortOrder = "desc",
+// }: {
+//     page: number;
+//     pageSize?: number;
+//     sortBy?: string;
+//     sortOrder?: "asc" | "desc";
+// }) {
+//     const url = `http://local host:8008/reports/pages?page=${page}&page_size=${pageSize}&sort_by=${sortBy}&sort_order=${sortOrder}`;
+
+//     const res = await fetch(url, {
+//         cache: "no-store",
+//     });
+
+//     if (!res.ok) {
+//         throw new Error("Failed to fetch reports");
+//     }
+
+//     return res.json();
+//     // expected: { items, total, total_pages, page, page_size }
+// }
+
+
 export async function fetchReports({
     page,
     pageSize = 4,
@@ -230,9 +256,16 @@ export async function fetchReports({
     sortBy?: string;
     sortOrder?: "asc" | "desc";
 }) {
-    const url = `http://localhost:8008/reports/pages?page=${page}&page_size=${pageSize}&sort_by=${sortBy}&sort_order=${sortOrder}`;
+    // build query params for the backend
+    const params = new URLSearchParams({
+        page: String(page),
+        page_size: String(pageSize),
+        sort_by: sortBy,
+        sort_order: sortOrder,
+        path: "/reports/pages", // backend endpoint
+    });
 
-    const res = await fetch(url, {
+    const res = await fetch(`/api/llm?${params.toString()}`, {
         cache: "no-store",
     });
 
@@ -243,4 +276,3 @@ export async function fetchReports({
     return res.json();
     // expected: { items, total, total_pages, page, page_size }
 }
-

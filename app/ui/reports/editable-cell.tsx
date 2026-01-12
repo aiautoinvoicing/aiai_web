@@ -21,11 +21,22 @@ export function EditableCell({
     async function save() {
         setLoading(true);
 
-        await fetch(`http://localhost:8008/reports/${rowId}`, {
+        // await fetch(`http://local   host:8008/reports/${rowId}`, {
+        //     method: "PATCH",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ [field]: localValue }),
+        // });
+
+        await fetch("/api/llm", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ [field]: localValue }),
+            body: JSON.stringify({
+                path: `/reports/${rowId}`,  // backend path
+                [field]: localValue,        // payload
+            }),
         });
+
+
 
         setLoading(false);
         setEditing(false);

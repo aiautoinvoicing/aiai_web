@@ -79,13 +79,27 @@ export async function uploadReports(formData: FormData) {
     const uploadFormData = new FormData();
     uploadFormData.append('file', file);
 
-    const response = await fetch('http://localhost:8008/reports/upload', {
-        method: 'POST',
-        headers: {
-            accept: 'application/json',
-        },
-        body: uploadFormData,
+    // const response = await fetch('http://local  host:8008/reports/upload', {
+    //     method: 'POST',
+    //     headers: {
+    //         accept: 'application/json',
+    //     },
+    //     body: uploadFormData,
+    // });
+
+
+    const response = await fetch("/api/llm", {
+        method: "POST",
+        body: (() => {
+            // wrap FormData with the backend path
+            const form = new FormData();
+            form.append("path", "/reports/upload");
+            // append all existing form fields
+            uploadFormData.forEach((value, key) => form.append(key, value));
+            return form;
+        })(),
     });
+
 
     if (!response.ok) {
         const text = await response.text();

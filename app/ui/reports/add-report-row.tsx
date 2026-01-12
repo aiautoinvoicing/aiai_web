@@ -18,16 +18,33 @@ export function AddReportRow({ onClose }: { onClose?: () => void }) {
     };
     const [form, setForm] = useState(initialForm);
 
+    // async function submit() {
+    //     setLoading(true);
+    //     await fetch("http://local host:8008/reports/add", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify(form),
+    //     });
+    //     setLoading(false);
+    //     location.reload(); // or router.refresh()
+    // }
+
     async function submit() {
         setLoading(true);
-        await fetch("http://localhost:8008/reports/add", {
+
+        await fetch("/api/llm", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(form),
+            body: JSON.stringify({
+                path: "/reports/add", // backend endpoint
+                ...form,              // forward the form data
+            }),
         });
+
         setLoading(false);
         location.reload(); // or router.refresh()
     }
+
 
     function cancel() {
         setForm(initialForm); // clear inputs

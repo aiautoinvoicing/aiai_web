@@ -35,7 +35,7 @@ export default function Ask() {
         "Summarize total deals by Source and Deal Stage",
 
         "// Semantic search (embeddings)",
-        
+
         "Which lead owners are most associated with successful deals?",
         "Are there common patterns among deals marked as Re-engagement?",
         "Identify trends in deal stages over time",
@@ -78,10 +78,13 @@ export default function Ask() {
         setLoadingLLM(true);
         try {
             const res = await fetch("/api/llm", {
-                // const res = await fetch("http://localhost:8008/iv3tools/sql_emb_serp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query, top_k: 3 }),
+                body: JSON.stringify({
+                    path: "/iv3tools/sql_emb_serp",
+                    query,
+                    top_k: 3
+                }),
             });
             const data = await res.json();
             setAnswerLLM(data.answer);
