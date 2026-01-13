@@ -1,5 +1,5 @@
 'use client';
-import { UserGroupIcon, HomeIcon, DocumentDuplicateIcon,DocumentChartBarIcon  } from '@heroicons/react/24/outline';
+import { UserGroupIcon, HomeIcon, DocumentDuplicateIcon,DocumentChartBarIcon,CurrencyDollarIcon  } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
@@ -9,6 +9,7 @@ import clsx from 'clsx';
 const links = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon },
     { name: 'Reports', href: '/dashboard/reports', icon: DocumentChartBarIcon , },
+    { name: 'Canada Wages', href: '/dashboard/wages', icon: CurrencyDollarIcon , },
     { name: 'Invoices', href: '/dashboard/aiinvoices', icon: DocumentDuplicateIcon, },
     { name: 'Customers', href: '/dashboard/aicustomers', icon: UserGroupIcon },
 
