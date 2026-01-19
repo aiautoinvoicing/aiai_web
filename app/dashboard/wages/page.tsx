@@ -1,24 +1,13 @@
 export const dynamic = "force-dynamic";
 
-<<<<<<< HEAD
 import { CreateInvoice, UploadReport, Ask } from '@/app/ui/invoices/buttons';
-=======
-import { UploadReport, Ask } from '@/app/ui/invoices/buttons';
->>>>>>> 6727d5689f006a8035b1534fea445b2cae398fb7
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
-import { fetchReports } from "@/app/lib/data";
+import { fetchWages } from "@/app/lib/data";
 import { Metadata } from 'next';
-<<<<<<< HEAD
-import ReportsTable from '@/app/ui/wages/table';
+import WagesTable from '@/app/ui/wages/table_main';
 import Pagination from "@/app/ui/wages/pagination";
-import { AddReportButton } from "@/app/ui/reports/add-report-button";
-import { FilterButton } from "@/app/ui/reports/filter-button";
-=======
-import ReportsTable from '@/app/ui/reports/table';
-import Pagination from "@/app/ui/reports/pagination";
->>>>>>> 6727d5689f006a8035b1534fea445b2cae398fb7
 
 export const metadata: Metadata = {
     title: 'Canada Wages | invoAIce Dashboard',
@@ -38,10 +27,8 @@ export default async function Page(props: {
     const currentPage = Number(searchParams?.page) || 1;
     const sortBy = searchParams?.sort_by;
     const sortOrder = searchParams?.sort_order;
-    const { total_pages } = await fetchReports({
+    const { total_pages } = await fetchWages({
         page: currentPage,
-        sortBy,
-        sortOrder,
     });
 
     return (
@@ -55,7 +42,7 @@ export default async function Page(props: {
             
             <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
 
-                <ReportsTable
+                <WagesTable
                     key={`${currentPage}-${sortBy}-${sortOrder}`} // 🔑 forces refresh
                     currentPage={currentPage}
                     sortBy={sortBy}

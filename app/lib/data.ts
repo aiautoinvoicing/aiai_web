@@ -10,6 +10,8 @@ import {
 import { formatCurrency } from "./utils";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+const hssql = postgres(process.env.ASYNC_HS!, { ssl: "require" });
+const baseUrl = process.env.BACKEND_URL!;
 
 export async function fetchRevenue() {
     try {
@@ -245,6 +247,32 @@ export async function fetchReports({
     // const url = `http://local host:8008/reports/pagination?page=${page}&page_size=${pageSize}&sort_by=${sortBy}&sort_order=${sortOrder}`;
 
     const url = `http://34.130.233.222:8008/reports/list_filtered_reports?${params.toString()}`;
+
+    const res = await fetch(url, {cache: "no-store",});
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch reports");
+    }
+
+    return res.json();
+    // expected: { items, total, total_pages, page, page_size }
+}
+
+
+
+export async function fetchWages({
+    page,
+    pageSize = 20,
+}: {
+    page: number;
+    pageSize?: number;
+}) {
+    const params = new URLSearchParams();
+    params.set("page", String(page));
+    params.set("page_size", String(pageSize));
+
+    const url = `http://34.130.233.222:8008/reports/list_filtered_reports?${params.toString()}`;
+    // const url = `${baseUrl}/wages/list_filtered_reports?${params.toString()}`;
 
     const res = await fetch(url, {cache: "no-store",});
 

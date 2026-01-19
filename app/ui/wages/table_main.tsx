@@ -1,10 +1,10 @@
 // app/ui/reports/table.tsx  (SERVER COMPONENT)
 
-import { fetchReports } from "@/app/lib/data";
-import { DataTable } from "./data-table";
+import { fetchWages } from "@/app/lib/data";
+import { DataTable } from "./table_data";
 import { columns } from "./columns";
 
-export default async function ReportsTable({
+export default async function WagesTable({
     currentPage,
     sortBy,
     sortOrder,
@@ -16,20 +16,10 @@ export default async function ReportsTable({
     searchParams?: Record<string, string | undefined>;
 }) {
 
-    const filters = {
-        first_name: searchParams?.first_name,
-        last_name: searchParams?.last_name,
-        company: searchParams?.company,
-        source: searchParams?.source,
-        deal_stage: searchParams?.deal_stage,
-        lead_owner: searchParams?.lead_owner,
-    };
-
-    const { items, total_pages } = await fetchReports({
+    const { items, total_pages } = await fetchWages({
         page: currentPage,
         sortBy,
         sortOrder,
-        filters,
     });
 
     return (
