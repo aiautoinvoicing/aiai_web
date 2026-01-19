@@ -1,7 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import Search from '@/app/ui/search';
-import { CreateInvoice, UploadReport, Ask } from '@/app/ui/invoices/buttons';
+import { UploadReport, Ask } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
@@ -9,8 +8,6 @@ import { fetchReports } from "@/app/lib/data";
 import { Metadata } from 'next';
 import ReportsTable from '@/app/ui/reports/table';
 import Pagination from "@/app/ui/reports/pagination";
-import { AddReportButton } from "@/app/ui/reports/add-report-button";
-import { FilterButton } from "@/app/ui/reports/filter-button";
 
 export const metadata: Metadata = {
     title: 'Canada Wages | invoAIce Dashboard',
@@ -39,21 +36,13 @@ export default async function Page(props: {
     return (
         <div className="w-full">
             <div className="flex w-full items-center gap-4">
-                <h1 className={`${lusitana.className} text-2xl`}>Reports</h1>
+                <h1 className={`${lusitana.className} text-2xl`}>Canada Wage Report (2017 - 2025) </h1>
                 <UploadReport />
                 <Ask />
             </div>
 
-            {/* <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-                <Search placeholder="Search Reports..." />
-                <Ask query={query} />
-            </div> */}
-            <div className="mt-4 mb-4 flex items-center justify-between gap-2 md:mt-8">
-                <FilterButton />
-            </div>
             
             <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-                {/* <ReportsTable currentPage={currentPage} /> */}
 
                 <ReportsTable
                     key={`${currentPage}-${sortBy}-${sortOrder}`} // 🔑 forces refresh
@@ -62,7 +51,6 @@ export default async function Page(props: {
                     sortOrder={sortOrder}
                     searchParams={searchParams}
                 />
-                <AddReportButton />
                 <Pagination totalPages={total_pages} />
 
             </Suspense>
