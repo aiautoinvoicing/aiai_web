@@ -1,14 +1,13 @@
 export const dynamic = "force-dynamic";
 
-import Search from '@/app/ui/search';
 import { CreateInvoice, UploadReport, Ask } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { fetchReports } from "@/app/lib/data";
 import { Metadata } from 'next';
-import ReportsTable from '@/app/ui/reports/table';
-import Pagination from "@/app/ui/reports/pagination";
+import ReportsTable from '@/app/ui/wages/table';
+import Pagination from "@/app/ui/wages/pagination";
 import { AddReportButton } from "@/app/ui/reports/add-report-button";
 import { FilterButton } from "@/app/ui/reports/filter-button";
 
