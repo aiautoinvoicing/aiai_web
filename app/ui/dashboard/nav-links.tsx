@@ -8,8 +8,8 @@ import clsx from 'clsx';
 // Depending on the size of the application, this would be stored in a database.
 const links = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon },
-    { name: 'Reports', href: '/dashboard/reports', icon: DocumentChartBarIcon , },
-    { name: 'Canada Wages', href: '/dashboard/wages', icon: CurrencyDollarIcon , },
+    { name: 'Reports (Haystack)', href: '/dashboard/reports', icon: DocumentChartBarIcon , },
+    { name: 'Canada Wages (Langchain)', href: '/dashboard/wages', icon: CurrencyDollarIcon , },
     { name: 'Invoices', href: '/dashboard/aiinvoices', icon: DocumentDuplicateIcon, },
     { name: 'Customers', href: '/dashboard/aicustomers', icon: UserGroupIcon },
 
