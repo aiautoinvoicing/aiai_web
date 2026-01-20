@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { CreateInvoice, UploadReport, Ask } from '@/app/ui/invoices/buttons';
+import { Ask } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
@@ -35,7 +35,6 @@ export default async function Page(props: {
         <div className="w-full">
             <div className="flex w-full items-center gap-4">
                 <h1 className={`${lusitana.className} text-2xl`}>Canada Wage Report (2017 - 2025) </h1>
-                <UploadReport />
                 <Ask />
             </div>
 

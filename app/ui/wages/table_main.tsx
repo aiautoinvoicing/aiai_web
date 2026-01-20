@@ -2,7 +2,7 @@
 
 import { fetchWages } from "@/app/lib/data";
 import { DataTable } from "./table_data";
-import { columns } from "./columns";
+import { columns } from "./columns_wage";
 
 export default async function WagesTable({
     currentPage,
@@ -18,18 +18,12 @@ export default async function WagesTable({
 
     const { items, total_pages } = await fetchWages({
         page: currentPage,
-        sortBy,
-        sortOrder,
     });
 
     return (
         <DataTable
             columns={columns}
             data={items}
-            // pageCount={total_pages}
-            // manualPagination
-            // manualSorting
-            // manualFiltering
         />
     );
 }
