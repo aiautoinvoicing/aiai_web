@@ -16,40 +16,11 @@ export function DataTable<TData>({ columns, data, }:
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const [sorting, setSorting] = useState<SortingState>(() => {
-        const sortBy = searchParams.get("sort_by");
-        const sortOrder = searchParams.get("sort_order");
-        return sortBy
-            ? [{ id: sortBy, desc: sortOrder === "desc" }]
-            : [];
-    });
 
     const table = useReactTable({
         data,
         columns,
-        state: { sorting },
-        manualSorting: true,
-        manualPagination: true,
-        manualFiltering: true,
         getCoreRowModel: getCoreRowModel(),
-        onSortingChange: (updater) => {
-            const next =
-                typeof updater === "function" ? updater(sorting) : updater;
-            setSorting(next);
-
-            const params = new URLSearchParams(searchParams.toString());
-
-            if (next.length === 0) {
-                params.delete("sort_by");
-                params.delete("sort_order");
-            } else {
-                params.set("sort_by", next[0].id);
-                params.set("sort_order", next[0].desc ? "desc" : "asc");
-            }
-
-            params.set("page", "1"); // reset page on sort
-            router.push(`?${params.toString()}`);
-        },
     });
 
     return (

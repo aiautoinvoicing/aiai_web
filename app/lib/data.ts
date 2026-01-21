@@ -271,8 +271,6 @@ export async function fetchWages({
     params.set("page", String(page));
     params.set("page_size", String(pageSize));
 
-    const url = `http://34.130.233.222:8008/reports/list_filtered_reports?${params.toString()}`;
-    console.log("-----Fetching wages from URL:", baseUrl);
     const vurl = `${baseUrl}/wages/pagination?${params.toString()}`;
     console.log("-----Fetching wages from URL:", vurl);
     const res = await fetch(vurl, {cache: "no-store",});

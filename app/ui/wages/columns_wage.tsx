@@ -4,28 +4,29 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 export type Wage = {
-    noc_title_en? : string;
-    province?: string;
-    er_name_en?: string;
-    low_wage?: number;
-    median_wage?: number;
-    high_wage?: number;
-    average_wage?: number;
-    quartile1_wage?: number;
-    quartile3_wage?: number;
+    noc_title_eng? : string;
+    prov?: string;
+    er_name?: string;
+    low_wage_salaire_minium?: number;
+    median_wage_salaire_median?: number;
+    high_wage_salaire_maximal?: number;
+    average_wage_salaire_moyen?: number;
+    quartile1_wage_salaire_quartile1?: number;
+    quartile3_wage_salaire_quartile3?: number;
+    data_source_e?: string;
 };
 
 
 
 export const columns: ColumnDef<Wage>[] = [
-    { accessorKey: "province", header: "province" },
-    { accessorKey: "noc_title_en", header: "noc_title_en" },
-    { accessorKey: "low_wage", header: "low_wage" },
-    { accessorKey: "median_wage", header: "median_wage" },
-    { accessorKey: "high_wage", header: "high_wage" },
-    { accessorKey: "average_wage", header: "average_wage" },
-    { accessorKey: "quartile1_wage", header: "quartile1_wage" },
-    { accessorKey: "quartile3_wage", header: "quartile3_wage" },
-    { accessorKey: "data_source_en", header: "data_source_en" },
-    { accessorKey: "data_source_fr", header: "data_source_en" },
+    { accessorKey: "prov", header: "Province" },
+    { accessorKey: "er_name", header: "Area" },
+    { accessorKey: "noc_title_eng", header: "Title" },
+    { accessorKey: "low_wage_salaire_minium", header: "low" },
+    { accessorKey: "median_wage_salaire_median", header: "med" },
+    { accessorKey: "high_wage_salaire_maximal", header: "high" },
+    { accessorKey: "average_wage_salaire_moyen", header: "ave" },
+    { accessorKey: "quartile1_wage_salaire_quartile1", header: "25%" },
+    { accessorKey: "quartile3_wage_salaire_quartile3", header: "75%" },
+    { accessorKey: "data_source_e", header: "data_source" },
 ];
