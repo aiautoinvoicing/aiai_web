@@ -9,7 +9,7 @@ import clsx from 'clsx';
 const links = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon },
     { name: 'Reports', href: '/dashboard/reports', icon: DocumentChartBarIcon , },
-    { name: 'Canada Wages', href: '/dashboard/wages', icon: CurrencyDollarIcon , },
+    // { name: 'Canada Wages', href: '/dashboard/wages', icon: CurrencyDollarIcon , },
     { name: 'Invoices', href: '/dashboard/aiinvoices', icon: DocumentDuplicateIcon, },
     { name: 'Customers', href: '/dashboard/aicustomers', icon: UserGroupIcon },
 

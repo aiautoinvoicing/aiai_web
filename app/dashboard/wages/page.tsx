@@ -34,7 +34,7 @@ export default async function Page(props: {
     return (
         <div className="w-full">
             <div className="flex w-full items-center gap-4">
-                <h1 className={`${lusitana.className} text-2xl`}>Canada Wage Report (2017 - 2025) </h1>
+                <h1 className={`${lusitana.className} text-2xl`}>Canada Wage Report (2025) </h1>
                 <Ask />
             </div>
 
