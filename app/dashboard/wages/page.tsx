@@ -44,9 +44,6 @@ export default async function Page(props: {
                 <WagesTable
                     key={`${currentPage}-${sortBy}-${sortOrder}`} // 🔑 forces refresh
                     currentPage={currentPage}
-                    sortBy={sortBy}
-                    sortOrder={sortOrder}
-                    searchParams={searchParams}
                 />
                 <Pagination totalPages={total_pages} />
 
