@@ -1,0 +1,26 @@
+import UploadForm from '@/app/ui/reports/upload-reports';
+import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import { fetchCustomers } from '@/app/lib/data';
+
+export default async function Page() {
+    const customers = await fetchCustomers();
+
+    return (
+        <main>
+            <Breadcrumbs
+                breadcrumbs={[
+                    { label: 'Reports', href: '/dashboard/reports' },
+                    {
+                        label: 'Upload Reports',
+                        href: '/dashboard/reports/ask',
+                        active: true,
+                    },
+                ]}
+            />
+            <UploadForm customers={customers} />
+        </main>
+    );
+}
+
+
+// superb // Ag21HHBcZvHlX98N
