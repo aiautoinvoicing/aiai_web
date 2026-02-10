@@ -1,10 +1,10 @@
 // app/ui/reports/table.tsx  (SERVER COMPONENT)
 
-import { fetchReports } from "@/app/lib/data";
+import { fetchDividends } from "@/app/lib/data";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 
-export default async function ReportsTable({
+export default async function DivTable({
     currentPage,
     sortBy,
     sortOrder,
@@ -25,7 +25,7 @@ export default async function ReportsTable({
         lead_owner: searchParams?.lead_owner,
     };
 
-    const { items, total_pages } = await fetchReports({
+    const { items, total_pages } = await fetchDividends({
         page: currentPage,
         sortBy,
         sortOrder,

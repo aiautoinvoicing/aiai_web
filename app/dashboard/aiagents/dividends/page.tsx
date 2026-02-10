@@ -7,10 +7,8 @@ import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 import { fetchReports } from "@/app/lib/data";
 import { Metadata } from 'next';
-import ReportsTable from '@/app/ui/reports/table';
-import Pagination from "@/app/ui/reports/pagination";
-import { AddReportButton } from "@/app/ui/reports/add-report-button";
-import { FilterButton } from "@/app/ui/reports/filter-button";
+import DivTable from '@/app/ui/dividends/table';
+import Pagination from "@/app/ui/dividends/pagination";
 
 export const metadata: Metadata = {
     title: 'Reports | invoAIce Dashboard',
@@ -44,25 +42,16 @@ export default async function Page(props: {
                 <Ask />
             </div>
 
-            {/* <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-                <Search placeholder="Search Reports..." />
-                <Ask query={query} />
-            </div> */}
-            <div className="mt-4 mb-4 flex items-center justify-between gap-2 md:mt-8">
-                <FilterButton />
-            </div>
-            
             <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
                 {/* <ReportsTable currentPage={currentPage} /> */}
 
-                <ReportsTable
+                <DivTable
                     key={`${currentPage}-${sortBy}-${sortOrder}`} // 🔑 forces refresh
                     currentPage={currentPage}
                     sortBy={sortBy}
                     sortOrder={sortOrder}
                     searchParams={searchParams}
                 />
-                <AddReportButton />
                 <Pagination totalPages={total_pages} />
 
             </Suspense>
