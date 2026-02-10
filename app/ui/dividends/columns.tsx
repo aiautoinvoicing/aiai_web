@@ -6,9 +6,9 @@ import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { EditableCell } from "./editable-cell";
 import { formatDate } from "@/app/utils/date";
 
-export type Report = {
-    id: string;
-    first_name?: string;
+export type Dividends = {
+    id?:string;
+    company_name?: string;
     last_name?: string;
     company?: string;
     lead_owner?: string;
@@ -44,14 +44,14 @@ const SortableHeader = ({
     );
 };
 
-export const columns: ColumnDef<Report>[] = [
+export const columns: ColumnDef<Dividends>[] = [
     {
-        id: "mdate", // ✅ backend sort key
+        id: "dividend_ex_date", // ✅ backend sort key
         accessorFn: (row) =>
             row.mdate ? new Date(row.mdate).getTime() : 0,
         sortingFn: "basic",
         header: ({ column }) => (
-            <SortableHeader column={column} label="Date" />
+            <SortableHeader column={column} label="Ex-Date" />
         ),
         cell: ({ row }) =>
             row.original.mdate
@@ -60,9 +60,9 @@ export const columns: ColumnDef<Report>[] = [
     },
 
     {
-        accessorKey: "first_name",
+        accessorKey: "symbol",
         header: ({ column }) => (
-            <SortableHeader column={column} label="First Name" />
+            <SortableHeader column={column} label="Symbol" />
         ),
         cell: ({ row }) => (
             <EditableCell
@@ -74,9 +74,9 @@ export const columns: ColumnDef<Report>[] = [
     },
 
     {
-        accessorKey: "last_name",
+        accessorKey: "company_name",
         header: ({ column }) => (
-            <SortableHeader column={column} label="Last Name" />
+            <SortableHeader column={column} label="Company" />
         ),
         cell: ({ row }) => (
             <EditableCell
@@ -88,9 +88,9 @@ export const columns: ColumnDef<Report>[] = [
     },
 
     {
-        accessorKey: "company",
+        accessorKey: "rate",
         header: ({ column }) => (
-            <SortableHeader column={column} label="Company" />
+            <SortableHeader column={column} label="Rate" />
         ),
         cell: ({ row }) => (
             <EditableCell
@@ -102,9 +102,9 @@ export const columns: ColumnDef<Report>[] = [
     },
 
     {
-        accessorKey: "lead_owner",
+        accessorKey: "latest_price",
         header: ({ column }) => (
-            <SortableHeader column={column} label="Lead Owner" />
+            <SortableHeader column={column} label="Latest Price" />
         ),
         cell: ({ row }) => (
             <EditableCell
@@ -116,23 +116,17 @@ export const columns: ColumnDef<Report>[] = [
     },
 
     {
-        accessorKey: "source",
+        accessorKey: "yield",
         header: ({ column }) => (
-            <SortableHeader column={column} label="Source" />
+            <SortableHeader column={column} label="Yield" />
         ),
     },
 
     {
-        accessorKey: "deal_stage",
+        accessorKey: "market_cap",
         header: ({ column }) => (
-            <SortableHeader column={column} label="Deal Stage" />
+            <SortableHeader column={column} label="Market Cap" />
         ),
     },
 
-    {
-        accessorKey: "account_id",
-        header: ({ column }) => (
-            <SortableHeader column={column} label="Account ID" />
-        ),
-    },
 ];

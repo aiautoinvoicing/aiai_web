@@ -17,15 +17,10 @@ export default async function DivTable({
 }) {
 
     const filters = {
-        first_name: searchParams?.first_name,
-        last_name: searchParams?.last_name,
-        company: searchParams?.company,
-        source: searchParams?.source,
-        deal_stage: searchParams?.deal_stage,
-        lead_owner: searchParams?.lead_owner,
+        company_name: searchParams?.company_name,
     };
 
-    const { items, total_pages } = await fetchDividends({
+    const  items = await fetchDividends({
         page: currentPage,
         sortBy,
         sortOrder,

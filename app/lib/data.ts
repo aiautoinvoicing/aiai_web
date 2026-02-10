@@ -12,6 +12,7 @@ import { formatCurrency } from "./utils";
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 const hssql = postgres(process.env.ASYNC_HS!, { ssl: "require" });
 const baseUrl = process.env.BACKEND_URL!;
+const divUrl = process.env.DIV_URL!;
 
 export async function fetchRevenue() {
     try {
@@ -248,7 +249,7 @@ export async function fetchReports({
 
     const url = `http://34.130.233.222:8008/reports/list_filtered_reports?${params.toString()}`;
 
-    const res = await fetch(url, {cache: "no-store",});
+    const res = await fetch(url, { cache: "no-store", });
 
     if (!res.ok) {
         throw new Error("Failed to fetch reports");
@@ -273,7 +274,7 @@ export async function fetchWages({
 
     const vurl = `${baseUrl}/wages/pagination?${params.toString()}`;
     console.log("-----Fetching wages from URL:", vurl);
-    const res = await fetch(vurl, {cache: "no-store",});
+    const res = await fetch(vurl, { cache: "no-store", });
 
     if (!res.ok) {
         throw new Error("Failed to fetch reports");
@@ -310,15 +311,26 @@ export async function fetchDividends({
 
     // const url = `http://local host:8008/reports/pagination?page=${page}&page_size=${pageSize}&sort_by=${sortBy}&sort_order=${sortOrder}`;
 
-    const url = `http://34.130.233.222:8008/reports/list_filtered_reports?${params.toString()}`;
+    // const url = `http://34.130.233.222:8008/reports/list_filtered_reports?${params.toString()}`;
+    // const url = `${process.env.DIV_URL}/div_show/`;
+    const auth = Buffer.from(`admin:yuzhoupaixiangyan`).toString("base64");
+    const url = `https://divapp.fastapicloud.dev/div_show/`;
 
-    const res = await fetch(url, {cache: "no-store",});
+
+    const res = await fetch(url, {
+        headers: {
+            Authorization: `Basic ${auth}`,
+        },
+        cache: "no-store",
+    });
+
 
     if (!res.ok) {
         throw new Error("Failed to fetch reports");
     }
-
-    return res.json();
+    const json = await res.json();
+    console.log("DIV RESPONSE:", json);
+    return json;
     // expected: { items, total, total_pages, page, page_size }
 }
 
