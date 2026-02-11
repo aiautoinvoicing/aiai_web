@@ -329,7 +329,7 @@ export async function fetchDividends({
         throw new Error("Failed to fetch reports");
     }
     const json = await res.json();
-    console.log("DIV RESPONSE:", json);
+    // console.log("DIV RESPONSE:", json);
     return json;
     // expected: { items, total, total_pages, page, page_size }
 }

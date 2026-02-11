@@ -6,35 +6,22 @@ import { columns } from "./columns";
 
 export default async function DivTable({
     currentPage,
-    sortBy,
-    sortOrder,
-    searchParams,
 }: {
     currentPage: number;
-    sortBy?: string;
-    sortOrder?: "asc" | "desc";
-    searchParams?: Record<string, string | undefined>;
 }) {
 
-    const filters = {
-        company_name: searchParams?.company_name,
-    };
 
-    const  items = await fetchDividends({
+    const items = (await fetchDividends({
         page: currentPage,
-        sortBy,
-        sortOrder,
-        filters,
-    });
+    })).sort((a:any, b:any) =>
+        new Date(a.dividend_ex_date).getTime() -
+        new Date(b.dividend_ex_date).getTime()
+    );
 
     return (
         <DataTable
             columns={columns}
             data={items}
-            // pageCount={total_pages}
-            // manualPagination
-            // manualSorting
-            // manualFiltering
         />
     );
 }
