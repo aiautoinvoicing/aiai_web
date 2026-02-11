@@ -8,7 +8,6 @@ import { Suspense } from 'react';
 import { fetchReports } from "@/app/lib/data";
 import { Metadata } from 'next';
 import DivTable from '@/app/ui/dividends/table';
-import Pagination from "@/app/ui/dividends/pagination";
 
 export const metadata: Metadata = {
     title: 'Reports | invoAIce Dashboard',
@@ -49,7 +48,6 @@ export default async function Page(props: {
                     key={`${currentPage}-${sortBy}-${sortOrder}`} // 🔑 forces refresh
                     currentPage={currentPage}
                 />
-                <Pagination totalPages={total_pages} />
 
             </Suspense>
         </div>
