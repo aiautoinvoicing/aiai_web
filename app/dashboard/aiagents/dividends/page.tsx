@@ -10,7 +10,7 @@ import { Metadata } from 'next';
 import DivTable from '@/app/ui/dividends/table';
 
 export const metadata: Metadata = {
-    title: 'Reports | invoAIce Dashboard',
+    title: 'Dividends | invoAIce Dashboard',
 };
 
 
@@ -36,7 +36,7 @@ export default async function Page(props: {
     return (
         <div className="w-full">
             <div className="flex w-full items-center gap-4">
-                <h1 className={`${lusitana.className} text-2xl`}>Reports</h1>
+                <h1 className={`${lusitana.className} text-2xl`}>Dividends </h1>
                 {/* <UploadReport /> */}
                 <Ask />
             </div>
