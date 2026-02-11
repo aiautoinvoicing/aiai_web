@@ -66,16 +66,28 @@ export function DataTable<TData>({ columns, data, }:
                 ))}
             </TableHeader>
             <TableBody>
-                {table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id}>
-                        {row.getVisibleCells().map((cell) => (
-                            <TableCell key={cell.id}>
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                ))}
+                {table.getRowModel().rows.map((row) => {
+                    const original = row.original as any;
+                    const highlight = Number(original.yield_percent) > 3;
+
+                    return (
+                        <TableRow
+                            key={row.id}
+                            className={highlight ? "bg-blue-50 dark:bg-blue-900" : ""}
+                        >
+                            {row.getVisibleCells().map((cell) => (
+                                <TableCell key={cell.id}>
+                                    {flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext()
+                                    )}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    );
+                })}
             </TableBody>
+
         </Table>
     );
 }
